@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  failed: boolean = false;
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  signUp() {
+    alert('Sign Up!');
+  }
+
+  home() {
+    this.router.navigate(['']);
+  }
 }
