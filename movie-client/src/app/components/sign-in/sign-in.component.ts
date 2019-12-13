@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,13 +11,27 @@ export class SignInComponent implements OnInit {
 
   userName: string = '';
   password: string = '';
+  failed: boolean = false;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
   signIn() {
-    console.log(this.userName, this.password);
+    if (this.authService.login(this.userName, this.password)) {
+      this.router.navigate(['home']);
+    } else {
+      this.failed = true;
+      setTimeout(() => this.failed = false, 3000);
+    }
+  }
+
+  signUp() {
+    this.router.navigate(['sign-up']);
+  }
+
+  home() {
+    this.router.navigate(['']);
   }
 }

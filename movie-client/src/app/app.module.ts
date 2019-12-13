@@ -13,6 +13,7 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     MovieDetailComponent,
     AboutUsComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    MovieTrailerComponent
   ],
   imports: [
     BrowserModule,
