@@ -1,1 +1,12 @@
-<h1>User Home Page</h1>
+<div class="container">
+  <nav>
+    <h2>Welcome User</h2>
+    <button class="btn btn-light">Reviews</button>
+    <button class="btn btn-light" routerLink='/user/favorites'>Favorites</button>
+    <button class="btn btn-light" routerLink='/user/profile'>Profile</button>
+    <button class="btn btn-light" (click)="logout()">Log Out</button>
+  </nav>
+  <div>
+    Movies List
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
 import { AuthService } from './services/auth-service/auth.service';
 import { UserService } from './services/user-service/user.service';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UserService } from './services/user-service/user.service';
     AboutUsComponent,
     SignInComponent,
     SignUpComponent,
-    MovieTrailerComponent
+    MovieTrailerComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

@@ -15,8 +15,9 @@ export class SignUpComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
 
-  constructor(private router: Router, private userService: UserService) { }
   success: boolean = false;
+
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -50,7 +51,7 @@ export class SignUpComponent implements OnInit {
   }
 
   uniqueEmail() {
-    return this.email !== 'abc@gmail.com'
+    return this.email !== 'abc@gmail.com';
   }
 
   signUp() {
