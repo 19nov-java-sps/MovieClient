@@ -14,6 +14,8 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
+import { AuthService } from './services/auth-service/auth.service';
+import { UserService } from './services/user-service/user.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
