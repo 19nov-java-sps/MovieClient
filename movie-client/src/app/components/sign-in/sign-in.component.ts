@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  userName: string = '';
+  email: string = '';
   password: string = '';
   failed: boolean = false;
 
@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    if (this.authService.login(this.userName, this.password)) {
+    if (this.authService.login(this.email, this.password)) {
       this.router.navigate(['home']);
     } else {
       this.failed = true;
@@ -31,7 +31,7 @@ export class SignInComponent implements OnInit {
     this.router.navigate(['sign-up']);
   }
 
-  home() {
+  main() {
     this.router.navigate(['']);
   }
 }

@@ -1,1 +1,40 @@
-<p>user-detail works!</p>
+<div class="container">
+  <form class="form-group" id="sign-up-form">
+    <div class="form-group">
+      <label for="email">Email <small>*</small></label><br>
+      <input id="email" type="email" placeholder="Email" [(ngModel)]="email" name="email" required><br>
+      <small *ngIf="email.length && !validateEmail()">Invalid Email</small>
+      <small *ngIf="!uniqueEmail()">Email Already In Use</small>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name <small>*</small></label><br>
+      <input id="firstName" type="text" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required><br>
+      <small *ngIf="firstName.length && !validateFirstName()">Invalid Name</small>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name <small>*</small></label><br>
+      <input id="lastName" type="text" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required><br>
+      <small *ngIf="lastName.length && !validateLastName()">Invalid Name</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label><br>
+      <input id="password" type="password" placeholder="Password" [(ngModel)]="password" name="password" required><br>
+      <small *ngIf="password.length && !validatePassword()">Password Should Be 8-16 Characters</small>
+    </div>
+    <div class="form-group">
+      <label for="confirmPass">Confirm Password</label><br>
+      <input id="confirmPass" type="password" placeholder="Confirm Password" [(ngModel)]="confirmPass" name="confirmPass" required><br>
+      <small *ngIf="confirmPass.length && !validateConfirmPass()">Password Does Not Match</small>
+    </div>
+    <div class="alert alert-success" *ngIf="success">
+      <strong>Update Success</strong>
+    </div>
+    <div class="alert alert-danger" *ngIf="noChange">
+      <strong>No Change Has Been Made</strong>
+    </div>
+    <div class="form-group">
+      <button id="update-btn" class="btn btn-primary" type="button" (click)="updateUser()" [disabled]="!(email && firstName && lastName)">Sbumit</button>
+      <button id="cancel-btn" class="btn btn-secondary" type="button" (click)="home()">Cancel</button>
+    </div>
+  </form>
+</div>
