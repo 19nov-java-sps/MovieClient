@@ -19,12 +19,13 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    if (this.authService.login(this.email, this.password)) {
-      this.router.navigate(['home']);
-    } else {
-      this.failed = true;
-      setTimeout(() => this.failed = false, 3000);
-    }
+    // if (this.authService.login(this.email, this.password)) {
+    //   this.router.navigate(['home']);
+    // } else {
+    //   this.failed = true;
+    //   setTimeout(() => this.failed = false, 3000);
+    // }
+    console.log(this.authService.login(this.email, this.password));
   }
 
   signUp() {

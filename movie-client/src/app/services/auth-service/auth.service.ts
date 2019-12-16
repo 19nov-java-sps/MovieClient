@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -14,11 +14,24 @@ export class AuthService {
 
   login(email: string, password: string) {
     
-    if (email === 'abc@gmail.com' && password === '123') {
-      return true;
-    }
-    else return false;
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    //   })};
+    
+    // const formData = new FormData();
+    // formData.append('emailaddress', email);
+    // formData.append('password', password);
+    
+    // this.http.post(this.url, formData, httpOptions)
+    //                     .subscribe(
+    //                         (res) => {
+    //                             console.log(res);
+    //                             return true;
+    //                         },
+    //                         err => console.log(err)
+    //                     );
+    // return false;
+
   }
-
-
 }

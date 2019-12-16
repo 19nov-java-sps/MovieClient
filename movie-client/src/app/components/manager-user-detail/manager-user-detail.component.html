@@ -1,0 +1,24 @@
+<div class="container">
+  <button class="btn btn-light" routerLink='/manager/users'>Users List</button>
+  <button *ngIf="currentUser.admin === false" class="btn btn-light">Ban</button>
+  <h3 *ngIf="!currentUser.emailAddress">No User Found</h3>
+  <div *ngIf="currentUser.emailAddress">
+    <table class="table table-hover">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Admin</th>
+      </tr>
+      <tr>
+        <td>{{currentUser.userId}}</td>
+        <td>{{currentUser.firstName}} {{currentUser.lastName}}</td>
+        <td>{{currentUser.emailAddress}}</td>
+        <td>{{currentUser.admin}}</td>
+      </tr>
+    </table>
+    <div>
+      reviews list
+    </div>
+  </div>
+</div>
