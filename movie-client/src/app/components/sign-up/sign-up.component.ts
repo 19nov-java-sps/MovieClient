@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
   lastName: string = '';
 
   success: boolean = false;
-  seconds: number = 3;
+  seconds: string = '3 seconds';
 
   constructor(private router: Router, private userService: UserService) { }
 
@@ -59,8 +59,8 @@ export class SignUpComponent implements OnInit {
     if (this.validateSignUp() && this.uniqueEmail()) {
       if (this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName))) {
         this.success = true;
-        setTimeout(() => this.seconds--, 1000);
-        setTimeout(() => this.seconds--, 2000);
+        setTimeout(() => this.seconds = '2 seconds', 1000);
+        setTimeout(() => this.seconds = '1 second', 2000);
         setTimeout(() => this.router.navigate(['home']), 3000);
       }
     }
