@@ -1,0 +1,13 @@
+a {
+  color: blue;
+}
+
+a:hover {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+h3:hover {
+  cursor: pointer;
+}

@@ -1,8 +1,8 @@
 export class User {
   userId: number;
-  email: string;
+  emailAddress: string;
   password: string;
   firstName: string;
   lastName: string;
-  isAdmin: boolean;
+  admin: boolean;
 }
