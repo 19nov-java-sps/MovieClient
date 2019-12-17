@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
+import { appendFile } from 'fs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,20 +19,45 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       })};
-    
-    const formData = new FormData();
-    formData.append('emailaddress', email);
-    formData.append('password', password);
-    
-    this.http.post(this.url, formData, httpOptions)
-                        .subscribe(
-                            (res) => {
-                                console.log(res);
-                                return true;
-                            },
-                            err => console.log(err)
-                        );
-    return false;
+
+
+
+
+      let url = "http://localhost:8080/PBJCinema/login";
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url);
+	xhr.onreadystatechange = function(){
+		if(this.readyState === 4 && this.status===200){
+      // set authorization in our browser for future request
+      
+		//	let auth = xhr.getResponseHeader("Authorization");
+		//	sessionStorage.setItem("token", auth);
+     window.location.href="http://www.google.com";
+      
+      /*
+			if(tokenArr[1]=="General"){
+				window.location.href="http://localhost:8080/ERS/employee";
+			}
+			else{
+				window.location.href="http://localhost:8080/ERS/manager";
+			}
+*/
+			
+		}
+		if(this.readyState === 4 ){
+			console.log(this);
+		}
+	}
+	let emailAddress = email;
+	let pass = password;
+console.log(emailAddress);
+	
+  xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
+	
+	let requestBody = `emailaddress=${emailAddress}&password=${pass}`;
+	
+	xhr.send(requestBody);
 
   }
 }

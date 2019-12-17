@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  email: string;
+  password: string;
   failed: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    console.log(this.authService.login(this.email, this.password));
+    //console.log(this.authService.login(this.email, this.password));
 
     if (this.authService.login(this.email, this.password)) {
       this.router.navigate(['home']);
