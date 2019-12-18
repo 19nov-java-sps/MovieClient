@@ -23,4 +23,16 @@ export class ReviewService {
   getReviewsByUserId(idParam: number) {
     // return this.http.get<Review>(this.url + '/' + idParam).toPromise();
   }
+
+  createReview(body) {
+    // code
+  }
+
+  editReview(body) {
+    // code
+  }
+
+  deleteReview(idParam) {
+    return this.http.delete<Review>(this.url + '/' + idParam).toPromise();
+  }
 }
