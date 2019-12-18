@@ -1,1 +1,24 @@
-<p>manager-review-detail works!</p>
+<div class="container">
+  <div class="container">
+    <button class="btn btn-light" routerLink='/manager/reviews'>Reviews List</button>
+    <button class="btn btn-light" (click)="deleteReview">Delete</button>
+    <h3 *ngIf="!currentReview.userId">No Review Found</h3>
+    <div *ngIf="currentReview.userId">
+      <table class="table table-hover">
+        <tr>
+          <th>Id</th>
+          <th>User</th>
+          <th>Movie</th>
+          <th>Title</th>
+          <th>Content</th>
+        </tr>
+        <tr>
+          <td>{{currentReview.reviewId}}</td>
+      <td>{{currentReview.movieId}}</td>
+      <td>{{currentReview.userId}}</td>
+      <td>{{currentReview.postTitle}}</td>
+      <td colspan="2">{{currentReview.postBody}}</td>
+        </tr>
+      </table>
+  </div>
+</div>

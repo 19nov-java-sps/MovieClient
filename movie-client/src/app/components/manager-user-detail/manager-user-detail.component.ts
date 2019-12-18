@@ -24,8 +24,8 @@ export class ManagerUserDetailComponent implements OnInit {
 
   getUser(idParam: number) {
     this.userService.getUserById(idParam)
-      .then((responsePost)=>{
-        this.currentUser = responsePost;
+      .then((response)=>{
+        this.currentUser = response;
       })
       .catch((e)=>{
         console.warn(e);
