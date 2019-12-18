@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, ɵbypassSanitizationTrustResourceUrl } from '@angular/core';
+
 import { User } from '../../models/user';
 import { Observable } from 'rxjs';
+import { Users } from '../../models/users';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +17,30 @@ export class UserService {
     return this.http.get<User>(this.url + '/' + idParam).toPromise();
   }
   createUser(email, password, firstName, lastName) {
-    console.log(email + password + firstName + lastName);
-    return true;
-  }
-  updateUser(email, password, firstName, lastName) {
+//(emailAddress, firstName, isAdmin, lastName, pass)
+    this.user.emailAddress=email;
+    this.user.lastName=lastName;
+    this.user.firstName=firstName;
+    this.user.password=password;
+
+
+  let headers = new HttpHeaders();
+headers.append('Content-Type', 'application/json');
+
+this.http.post(this.url,this.user).subscribe(
+  (response) => console.log(response),
+  (error) => console.log(error)
+);
+return true;
+
+}
+    
+}
+  
+/*
+  updateUser(this.email, this.password, this.firstName, this.lastName) {
+
+
     console.log(email + password + firstName + lastName);
     return true;
   }
