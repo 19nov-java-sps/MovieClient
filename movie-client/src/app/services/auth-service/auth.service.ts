@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
-import { appendFile } from 'fs';
 
 @Injectable({
   providedIn: 'root'
