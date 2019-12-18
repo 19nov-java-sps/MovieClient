@@ -20,9 +20,6 @@ export class AuthService {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       })};
 
-
-
-
       let url = "http://localhost:8080/PBJCinema/login";
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url);
@@ -58,6 +55,9 @@ console.log(emailAddress);
 	let requestBody = `emailaddress=${emailAddress}&password=${pass}`;
 	
 	xhr.send(requestBody);
+
+
+
 
   }
 }
