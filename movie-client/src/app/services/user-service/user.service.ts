@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵbypassSanitizationTrustResourceUrl } from '@angular/core';
 
 import { User } from '../../models/user';
 import { Observable } from 'rxjs';
@@ -12,9 +12,9 @@ export class UserService {
   url: string = 'http://localhost:8080/PBJCinema/users';
   
   user: Users = {
-    firstName:" ",
-    lastName: " ",
-    emailAddress:" ",
+    firstname:" ",
+    lastname: " ",
+    emailaddress:" ",
     password: " "
 
 
@@ -35,52 +35,24 @@ export class UserService {
  
  
   createUser(email, password, firstName, lastName) {
-    
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-      })};
-
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", this.url);
-	xhr.onreadystatechange = function(){
-		if(this.readyState === 4 && this.status===200){
-      // set authorization in our browser for future request
-      
-		//	let auth = xhr.getResponseHeader("Authorization");
-		//	sessionStorage.setItem("token", auth);
-     
-      
-      /*
-			if(tokenArr[1]=="General"){
-				window.location.href="http://localhost:8080/ERS/employee";
-			}
-			else{
-				window.location.href="http://localhost:8080/ERS/manager";
-			}
-*/
-			
-		}
-		if(this.readyState === 4 ){
-			console.log(this);
-		}
-	}
-	let emailAddress = email;
-  let pass = password;
-  let firstname=firstName;
-  let lastname=lastName;
+    this.user.emailAddress=email;
+    this.user.lastName=lastName;
+    this.user.firstName=firstName;
+    this.user.password=password;
 
 
-	
-  xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
-  xhr.setRequestHeader("Access-Control-Allow-Origin", "*")
-	
-	let requestBody = `emailaddress=${emailAddress}&password=${pass}&firstname=${firstname}&lastname=${lastname}`;
-	
-	xhr.send(requestBody);
 
-  window.location.href="localhost:4200/home"
+  
+  let headers = new HttpHeaders();
+headers.append('Content-Type', 'application/json');
+
+this.http.post(this.url,this.user).subscribe(
+  (response) => console.log(response),
+  (error) => console.log(error)
+);
+
+
 
 
 
