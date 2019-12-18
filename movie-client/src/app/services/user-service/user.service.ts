@@ -12,9 +12,9 @@ export class UserService {
   url: string = 'http://localhost:8080/PBJCinema/users';
   
   user: Users = {
-    firstname:" ",
-    lastname: " ",
-    emailaddress:" ",
+    firstName:" ",
+    lastName: " ",
+    emailAddress:" ",
     password: " "
 
 
@@ -35,15 +35,13 @@ export class UserService {
  
  
   createUser(email, password, firstName, lastName) {
-
+//(emailAddress, firstName, isAdmin, lastName, pass)
     this.user.emailAddress=email;
     this.user.lastName=lastName;
     this.user.firstName=firstName;
     this.user.password=password;
 
 
-
-  
   let headers = new HttpHeaders();
 headers.append('Content-Type', 'application/json');
 
@@ -51,10 +49,6 @@ this.http.post(this.url,this.user).subscribe(
   (response) => console.log(response),
   (error) => console.log(error)
 );
-
-
-
-
 
 
 }
