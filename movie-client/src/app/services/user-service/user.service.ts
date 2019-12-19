@@ -53,14 +53,15 @@ return true;
 
 }
     
-}
+
   
-/*
-  updateUser(this.email, this.password, this.firstName, this.lastName) {
+
+  updateUser(email, password, firstName, lastName) {
 
 
     console.log(email + password + firstName + lastName);
     return true;
   }
 
-  */
+  
+}
