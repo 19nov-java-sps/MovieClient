@@ -19,8 +19,6 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    //console.log(this.authService.login(this.email, this.password));
-
     if (this.authService.login(this.email, this.password)) {
       this.router.navigate(['home']);
     } else {

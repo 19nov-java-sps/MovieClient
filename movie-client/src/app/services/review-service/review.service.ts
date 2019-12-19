@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ReviewService {
 
-  url: string = 'http://localhost:8080/PBJCinema/reviews';
+  url: string = 'http://34.205.129.232:8080/PBJCinema/reviews';
 
   constructor(private http: HttpClient) { }
 
