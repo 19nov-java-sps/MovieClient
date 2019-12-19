@@ -31,7 +31,7 @@ export class ReviewService {
   getReviewsByUserId(idParam: number) {
     // return this.http.get<Review>(this.url + '/' + idParam).toPromise();
   }
-
+  
   editReview(userid, postTitle,postBody) {
    this.review.userId=userid;
     this.review.postTitle=postTitle;
@@ -48,6 +48,11 @@ this.http.post(this.url,this.review).subscribe(
 );
 return true;
 
-    
+createReview(body) {
+    // code
+  }
+
+  deleteReview(idParam) {
+    return this.http.delete<Review>(this.url + '/' + idParam).toPromise();
   }
 }
