@@ -1,14 +1,30 @@
 <div class="container">
-    <h3 (click)="main()" class="text text-info">CINEAPP</h3>
-    <form class="form-group">
-      <div class="form-group">
-        <label for="PostTitle">New Post Title</label>
-        <input id="email" type="text" placeholder="PostTitle" [(ngModel)]="PostTitle" name="postTitle" autofocus autocomplete="off">
-      </div>
-      <div class="form-group">
-        <label for="PostBody">New Post Body</label>
-        <input id="password" type="text" placeholder="PostBody" [(ngModel)]="PostBody" name="postBody">
-      </div>
-      <div class="form-group">
-        <button id="sign-in-btn" class="btn btn-primary" type="button" (click)="editReview()">Sign In</button>
-      </div>
+  <h3 *ngIf="!reviews.length">You Don't Have Any Reviews</h3>
+  <div *ngIf="reviews.length">
+    <table class="table table-hover">
+      <tr>
+        <th>Movie</th>
+        <th>Title</th>
+        <th>Content</th>
+      </tr>
+      <tr *ngFor="let review of reviews">
+        <td>{{review.movieId}}</td>
+        <td><textarea class="form-control" placeholder="Title" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postTitle">{{review.postTitle}}</textarea></td>
+        <td><textarea class="form-control" placeholder="Write Your Review Here" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postBody">{{review.postBody}}</textarea></td>
+        <td><button class="btn btn-sm btn-info" (click)="edit(review.reviewId)">Edit</button></td>
+        <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
+      </tr>
+    </table>
+    <div *ngIf="enableEdit && !validate" class="alert alert-danger">
+      <strong>Failed!</strong> Review Title And Content CANNOT Be Empty
+    </div>
+    <div class="alert alert-danger" *ngIf="noChange">
+      <strong>No Change Has Been Made</strong>
+    </div>
+    <div *ngIf="enableEdit" class="text-center">
+      <button class="btn btn-primary" type="button" (click)="editReview()">Submit</button>
+      <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+  <button class="btn btn-light" (click)="home()">Return</button>
+</div>

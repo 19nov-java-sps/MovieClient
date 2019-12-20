@@ -9,14 +9,8 @@ import { Observable } from 'rxjs';
 export class ReviewService {
 
   url: string = 'http://34.205.129.232:8080/PBJCinema/reviews';
-  review: Review = {
-    reviewId: 0,
-    movieId:0,
-    userId:0,
-    postTitle:" ",
-    postBody: " ",
 
-  };
+  review: Review = new Review();
 
   constructor(private http: HttpClient) { }
 
@@ -29,30 +23,32 @@ export class ReviewService {
   }
 
   getReviewsByUserId(idParam: number) {
-    // return this.http.get<Review>(this.url + '/' + idParam).toPromise();
+    console.log(idParam)
+    return this.http.get<Review[]>('http://34.205.129.232:8080/PBJCinemausers/' + idParam + '/reviews').toPromise();
   }
-  
-  editReview(userid, postTitle,postBody) {
-   this.review.userId=userid;
-    this.review.postTitle=postTitle;
-    this.review.postBody=postBody;
-   
 
-
-  let headers = new HttpHeaders();
-headers.append('Content-Type', 'application/json');
-
-this.http.post(this.url,this.review).subscribe(
-  (response) => console.log(response),
-  (error) => console.log(error)
-);
-return true;
-
-createReview(body) {
+  createReview(body) {
     // code
   }
 
   deleteReview(idParam) {
     return this.http.delete<Review>(this.url + '/' + idParam).toPromise();
   }
+  
+  editReview(reviewId, postTitle,postBody) {
+
+    this.review.reviewId = reviewId;
+    this.review.postTitle = postTitle;
+    this.review.postBody = postBody;
+
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post(this.url, this.review).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
+    return true;
+  }
+
 }

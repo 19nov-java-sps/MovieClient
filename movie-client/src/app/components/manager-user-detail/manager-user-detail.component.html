@@ -17,8 +17,25 @@
         <td>{{currentUser.admin}}</td>
       </tr>
     </table>
-    <div>
-      reviews list
+    <div *ngIf="!reviews.length" class="text text-warning">Selected User Does Not Have Any Reviews</div>
+    <div *ngIf="reviews.length">
+      <table class="table table-hover" *ngIf="reviews.length">
+        <tr>
+          <th>Id</th>
+          <th>User</th>
+          <th>Movie</th>
+          <th>Title</th>
+          <th>Content</th>
+        </tr>
+        <tr *ngFor="let review of reviews">
+          <td>{{review.reviewId}}</td>
+          <td>{{review.movieId}}</td>
+          <td>{{review.userId}}</td>
+          <td>{{review.postTitle}}</td>
+          <td>{{review.postBody}}</td>
+          <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

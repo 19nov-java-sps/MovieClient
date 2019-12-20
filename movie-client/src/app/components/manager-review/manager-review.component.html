@@ -9,12 +9,13 @@
       <th>Title</th>
       <th>Content</th>
     </tr>
-    <tr *ngFor="let review of reviews" routerLink="/manager/reviews/{{review.reviewId}}" >
+    <tr *ngFor="let review of reviews">
       <td>{{review.reviewId}}</td>
       <td>{{review.movieId}}</td>
       <td>{{review.userId}}</td>
       <td>{{review.postTitle}}</td>
-      <td colspan="2">{{review.postBody}}</td>
+      <td>{{review.postBody}}</td>
+      <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
     </tr>
     </table>
   </div>

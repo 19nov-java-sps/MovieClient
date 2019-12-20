@@ -9,7 +9,6 @@ import { ManagerHomeComponent } from './components/manager-home/manager-home.com
 import { ManagerUserComponent } from './components/manager-user/manager-user.component';
 import { ManagerUserDetailComponent } from './components/manager-user-detail/manager-user-detail.component';
 import { ManagerReviewComponent } from './components/manager-review/manager-review.component';
-import { ManagerReviewDetailComponent } from './components/manager-review-detail/manager-review-detail.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
 
 const routes: Routes = [{
@@ -42,9 +41,6 @@ const routes: Routes = [{
   }]}, {
   path: 'manager/users/:id',
   component: ManagerUserDetailComponent
-}, {
-  path: 'manager/reviews/:id',
-  component: ManagerReviewDetailComponent
 }, {
   path: '**',
   pathMatch: 'full',
