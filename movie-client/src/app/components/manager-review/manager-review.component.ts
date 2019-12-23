@@ -14,10 +14,20 @@ export class ManagerReviewComponent implements OnInit {
   constructor(private reviewService: ReviewService) { }
 
   ngOnInit() {
+    this.getAllReviews();
+  }
+
+  getAllReviews() {
     this.reviewService.getReviews()
       .subscribe((allReviews)=>{
         this.reviews = allReviews;
     });
+  }
+
+  delete(reviewId) {
+    this.reviewService.deleteReview(reviewId);
+
+    this.getAllReviews();
   }
 
 }

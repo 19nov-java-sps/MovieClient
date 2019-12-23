@@ -1,12 +1,11 @@
 <div class="container">
-  <nav>
-    <h2>Welcome User</h2>
-    <button class="btn btn-light" routerLink='/user/reviews'>Reviews</button>
-    <button class="btn btn-light" routerLink='/user/favorites'>Favorites</button>
-    <button class="btn btn-light" routerLink='/user/profile'>Profile</button>
-    <button class="btn btn-light" (click)="logout()">Log Out</button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <h3 (click)="main()" class="text text-info" id="title">CINEAPP</h3>
+    <h3 class="text text-light">Welcome {{user.firstName}}</h3>
+    <button id="first-btn" class="btn btn-dark" routerLink='./favorites'>Favorites</button>
+    <button class="btn btn-dark" routerLink='./reviews'>Reviews</button>
+    <button class="btn btn-dark" routerLink='./profile'>Profile</button>
+    <button class="btn btn-dark" (click)="logout()">Log Out</button>
   </nav>
-  <div>
-    Movies List
-  </div>
 </div>
+<router-outlet></router-outlet>
