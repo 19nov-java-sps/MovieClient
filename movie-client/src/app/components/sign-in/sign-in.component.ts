@@ -16,13 +16,17 @@ export class SignInComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    if (sessionStorage.getItem('auth')) {
+      this.router.navigate(['home']);
+    }
   }
 
   signIn() {
-    //console.log(this.authService.login(this.email, this.password));
-
-    if (this.authService.login(this.email, this.password)) {
-      this.router.navigate(['home']);
+    let token = this.authService.login(this.email, this.password);
+    
+    if (token) {
+      sessionStorage.setItem('auth' ,token);
+      this.router.navigate(['']);
     } else {
       this.failed = true;
       setTimeout(() => this.failed = false, 3000);

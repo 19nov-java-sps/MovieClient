@@ -1,0 +1,20 @@
+#title {
+  cursor: pointer;
+}
+
+nav {
+  border-radius: 0 0 1em 1em;
+}
+
+h3 {
+  float: left;
+  margin-left: 5%;
+}
+
+#first-btn {
+  margin-left: 28%;
+}
+
+button {
+  margin-right: 1.2%;
+}

@@ -11,9 +11,25 @@ export class ManagerHomeComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    let token = sessionStorage.getItem('auth');
+    if (!token) {
+      this.router.navigate(['']);
+    }
+
+    let manager = token.split(':')[1];
+    console.log(manager)
+    if (manager === 'false') {
+      this.router.navigate(['home']);
+    }
+
   }
 
   logout() {
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
+
+  main() {
     this.router.navigate(['']);
   }
 }
