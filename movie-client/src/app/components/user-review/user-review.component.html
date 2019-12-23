@@ -1,6 +1,8 @@
 <div class="container">
-  <h3 *ngIf="!reviews.length">You Don't Have Any Reviews</h3>
+  <br><br>
+  <h3 *ngIf="!reviews.length" class="text text-center text-secondary">You Don't Have Any Reviews</h3>
   <div *ngIf="reviews.length">
+    <h1 class="text text-center text-secondary">My Reviews</h1><br>
     <table class="table table-hover">
       <tr>
         <th>Movie</th>
@@ -12,7 +14,7 @@
         <td><textarea class="form-control" placeholder="Title" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postTitle">{{review.postTitle}}</textarea></td>
         <td><textarea class="form-control" placeholder="Write Your Review Here" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postBody">{{review.postBody}}</textarea></td>
         <td><button class="btn btn-sm btn-info" (click)="edit(review.reviewId)">Edit</button></td>
-        <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
+        <td><button [disabled]="enableEdit" class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
       </tr>
     </table>
     <div *ngIf="enableEdit && !validate" class="alert alert-danger">

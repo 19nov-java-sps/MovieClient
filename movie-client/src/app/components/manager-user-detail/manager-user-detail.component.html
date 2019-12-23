@@ -1,8 +1,8 @@
 <div class="container">
-  <button class="btn btn-light" routerLink='/manager/users'>Users List</button>
-  <button *ngIf="currentUser.admin === false" class="btn btn-light">Ban</button>
+  <br><br>
   <h3 *ngIf="!currentUser.emailAddress">No User Found</h3>
   <div *ngIf="currentUser.emailAddress">
+    <p class="text text-secondary"><strong>User Profile</strong></p>
     <table class="table table-hover">
       <tr>
         <th>Id</th>
@@ -17,12 +17,14 @@
         <td>{{currentUser.admin}}</td>
       </tr>
     </table>
+    <button *ngIf="currentUser.admin === false" id="ban-btn" class="btn btn-danger" (click)="ban()">Ban</button>
+    <br><br>
     <div *ngIf="!reviews.length" class="text text-warning">Selected User Does Not Have Any Reviews</div>
     <div *ngIf="reviews.length">
+      <p class="text text-secondary"><strong>User Reviews</strong></p>
       <table class="table table-hover" *ngIf="reviews.length">
         <tr>
           <th>Id</th>
-          <th>User</th>
           <th>Movie</th>
           <th>Title</th>
           <th>Content</th>
@@ -30,7 +32,6 @@
         <tr *ngFor="let review of reviews">
           <td>{{review.reviewId}}</td>
           <td>{{review.movieId}}</td>
-          <td>{{review.userId}}</td>
           <td>{{review.postTitle}}</td>
           <td>{{review.postBody}}</td>
           <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>

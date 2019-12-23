@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user-service/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-user-detail',
@@ -8,6 +9,9 @@ import { UserService } from 'src/app/services/user-service/user.service';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
+
+  user: User = new User();
+  userId: number;
 
   email: string = '';
   password: string = '';
@@ -26,14 +30,32 @@ export class UserDetailComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.oldEmail = 'abc@gmail.com';
-    this.oldPassword = '11111111';
-    this.oldFirstName = 'abc';
-    this.oldLastName = 'efg';
+    this.userId = Number(sessionStorage.getItem('auth').split(':')[0]);
+    this.getUser(this.userId);
+  }
 
-    this.email = 'abc@gmail.com';
-    this.firstName = 'abc';
-    this.lastName = 'efg';
+  getUser(idParam: number) {
+    this.userService.getUserById(idParam)
+      .then((response)=>{
+        this.user = response;
+
+        if (!this.user.userId) {
+          sessionStorage.clear();
+          this.router.navigate(['']);
+        } else {
+          this.oldEmail = this.user.emailAddress;
+          this.oldPassword = this.user.password;
+          this.oldFirstName = this.user.firstName;
+          this.oldLastName = this.user.lastName;
+    
+          this.email = this.oldEmail;
+          this.firstName = this.oldFirstName;
+          this.lastName = this.oldLastName;
+        }
+      })
+      .catch((e)=>{
+        console.warn(e);
+      })
   }
 
   validateEmail() {
@@ -71,7 +93,7 @@ export class UserDetailComponent implements OnInit {
 
   uniqueEmail() {
     if (this.email !== this.oldEmail) {
-      return this.email !== 'abc@gmail.com' && this.email !== 'efg@gmail.com';
+      return this.email !== 'abc@gmail.com';
     }
     return true;
   }
@@ -84,10 +106,11 @@ export class UserDetailComponent implements OnInit {
 
     else if (this.validateUpdate() && this.uniqueEmail()) {
       if (!this.password) this.password = this.oldPassword;
-      if (this.userService.updateUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName))) {
+      if (this.userService.updateUser(this.user.userId, this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName))) {
         this.password = '';
         this.confirmPass = '';
         this.success = true;
+        this.getUser(this.userId);
         setTimeout(() => this.success = false, 3000);
       }
     }

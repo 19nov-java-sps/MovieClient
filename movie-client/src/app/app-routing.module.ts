@@ -10,38 +10,42 @@ import { ManagerUserComponent } from './components/manager-user/manager-user.com
 import { ManagerUserDetailComponent } from './components/manager-user-detail/manager-user-detail.component';
 import { ManagerReviewComponent } from './components/manager-review/manager-review.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
+import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
 
 const routes: Routes = [{
+  path: '',
+  component: MovieTrailerComponent
+}, {
   path: 'login',
   component: SignInComponent
-}, {
-  path: 'home',
-  component: UserHomeComponent
 }, {
   path: 'sign-up',
   component: SignUpComponent
 }, {
-  path: 'user/profile',
-  component: UserDetailComponent
-}, {
-  path: 'user/favorites',
-  component: FavoritesComponent
-},  {
-  path: 'user/reviews',
-  component: UserReviewComponent
-},  {
+  path: 'home',
+  component: UserHomeComponent,
+  children: [{
+    path: 'profile',
+    component: UserDetailComponent
+    }, {
+    path: 'favorites',
+    component: FavoritesComponent
+  }, {
+    path: 'reviews',
+    component: UserReviewComponent
+  }]}, {
   path: 'manager',
   component: ManagerHomeComponent,
   children: [{
     path: 'users',
     component: ManagerUserComponent
-    },{
+    }, {
     path: 'reviews',
     component: ManagerReviewComponent
+  }, {
+    path: 'users/:id',
+    component: ManagerUserDetailComponent
   }]}, {
-  path: 'manager/users/:id',
-  component: ManagerUserDetailComponent
-}, {
   path: '**',
   pathMatch: 'full',
   redirectTo: ''

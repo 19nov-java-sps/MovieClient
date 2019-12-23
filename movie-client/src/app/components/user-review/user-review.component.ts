@@ -10,10 +10,11 @@ import { Review } from 'src/app/models/review';
 })
 export class UserReviewComponent implements OnInit {
 
+  userId: number;
   reviews: Review[] = [];
 
-  currentReview: Review = new Review();
-  currentReviewId: number;
+  currentReviewIndex: number = null;
+  currentReviewId: number = null;
 
   oldTitle: string = '';
   oldBody: string = '';
@@ -25,19 +26,30 @@ export class UserReviewComponent implements OnInit {
   constructor(private router: Router, private reviewService: ReviewService) { }
 
   ngOnInit() {
-    this.getUserReviews(2);
+    this.userId = Number(sessionStorage.getItem('auth').split(':')[0]);
+    this.getUserReviews(this.userId);
   }
 
   edit(reviewId) {
+  
     if (!this.currentReviewId) {
       this.currentReviewId = reviewId;
     }
     
     if (this.currentReviewId === reviewId) {
+      if (this.enableEdit === true) {
+        this.reviews[this.currentReviewIndex].postTitle = this.oldTitle;
+        this.reviews[this.currentReviewIndex].postBody = this.oldBody;
+      }
       this.enableEdit = !this.enableEdit;
     }
 
     if (this.enableEdit) {
+      if (this.currentReviewIndex !== null) {
+        this.reviews[this.currentReviewIndex].postTitle = this.oldTitle;
+        this.reviews[this.currentReviewIndex].postBody = this.oldBody;
+      }
+
       this.currentReviewId = reviewId;
       this.getReview(this.currentReviewId);
 
@@ -48,63 +60,39 @@ export class UserReviewComponent implements OnInit {
   }
 
   getUserReviews(userId) {
-    // this.reviewService.getReviewsByUserId(userId)
-    //   .then((response)=>{
-    //     this.reviews = response;
-    //   })
-    //   .catch((e)=>{
-    //     console.warn(e);
-    //   });
-
-    let review1 = new Review();
-    review1.reviewId = 1;
-    review1.userId = userId;
-    review1.movieId = 1;
-    review1.postTitle = '111';
-    review1.postBody = 'body 111';
-
-    let review2 = new Review();
-    review2.reviewId = 2;
-    review2.userId = userId;
-    review2.movieId = 1;
-    review2.postTitle = '222';
-    review2.postBody = 'body 222';
-
-    let review3 = new Review();
-    review3.reviewId = 3;
-    review3.userId = userId;
-    review3.movieId = 1;
-    review3.postTitle = '333';
-    review3.postBody = 'body 333';
-
-    this.reviews = [review1, review2, review3];
+    this.reviewService.getReviewsByUserId(userId)
+      .then((response)=>{
+        this.reviews = response;
+      })
+      .catch((e)=>{
+        console.warn(e);
+      });
   }
 
   getReview(reviewId: number) {
-    // this.reviewService.getReviewById(reviewId)
-    //   .then((response)=>{
-    //     this.currentReview = response;
-    //   })
-    //   .catch((e)=>{
-    //     console.warn(e);
-    //   });
 
-    this.currentReview = this.reviews[reviewId - 1];
-    
-    this.oldTitle = this.currentReview.postTitle;
-    this.oldBody = this.currentReview.postBody;
+    this.currentReviewIndex = this.reviews.findIndex(review => review.reviewId === reviewId);
+
+    this.oldTitle = this.reviews[this.currentReviewIndex].postTitle;
+    this.oldBody = this.reviews[this.currentReviewIndex].postBody;
   }
 
   editReview() {
-    if (this.currentReview.postTitle === this.oldTitle && this.currentReview.postBody === this.oldBody) {
+    if (this.reviews[this.currentReviewIndex].postTitle === this.oldTitle && this.reviews[this.currentReviewIndex].postBody === this.oldBody) {
       this.noChange = true;
       setTimeout(() => this.noChange = false, 3000);
 
-    } else if (this.currentReview.postTitle.replace(/\s/g, '').length > 0 && this.currentReview.postBody.replace(/\s/g, '').length > 0) {
-      // this.reviewService.editReview(this.currentReviewId, this.currentReview.postTitle.trim(), this.currentReview.postBody.trim());
+    } else if (this.reviews[this.currentReviewIndex].postTitle.replace(/\s/g, '').length > 0 && this.reviews[this.currentReviewIndex].postBody.replace(/\s/g, '').length > 0) {
+      if (this.reviewService.editReview(this.currentReviewId, this.reviews[this.currentReviewIndex].postTitle.trim(), this.reviews[this.currentReviewIndex].postBody.trim())) {
+        this.enableEdit = false;
+        this.currentReviewId = null;
+        this.currentReviewIndex = null;
 
-      this.enableEdit = false;
-      this.currentReviewId = null;
+        // this.getUserReviews(this.userId);
+      } else {
+        console.log('Server Error')
+      }
+      
     } else {
       this.validate = false;
       setTimeout(() => this.validate = true, 3000);
@@ -112,19 +100,20 @@ export class UserReviewComponent implements OnInit {
   }
 
   delete(reviewId) {
-    // this.reviewService.deleteReview(reviewId);
-
-    this.enableEdit = false;
-    this.currentReviewId = null;
-
-    this.getUserReviews(this.currentReviewId);
+    if (window.confirm("Do you really want to delete the review?")) { 
+      
+      this.reviewService.deleteReview(reviewId);
+  
+      this.getUserReviews(this.userId);
+    }
   }
 
   cancel() {
     this.enableEdit = false;
     this.currentReviewId = null;
 
-    this.getUserReviews(this.currentReviewId);
+    this.reviews[this.currentReviewIndex].postTitle = this.oldTitle;
+    this.reviews[this.currentReviewIndex].postBody = this.oldBody;
   }
 
   home() {

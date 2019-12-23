@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ReviewService {
 
-  url: string = 'http://34.205.129.232:8080/PBJCinema/reviews';
+  url: string = 'http://34.205.129.232:8080/PBJCinema/reviews/';
 
   review: Review = new Review();
 
@@ -23,8 +23,7 @@ export class ReviewService {
   }
 
   getReviewsByUserId(idParam: number) {
-    console.log(idParam)
-    return this.http.get<Review[]>('http://34.205.129.232:8080/PBJCinemausers/' + idParam + '/reviews').toPromise();
+    return this.http.get<Review[]>('http://34.205.129.232:8080/PBJCinema/users/' + idParam + '/reviews').toPromise();
   }
 
   createReview(body) {
@@ -32,10 +31,11 @@ export class ReviewService {
   }
 
   deleteReview(idParam) {
-    return this.http.delete<Review>(this.url + '/' + idParam).toPromise();
+    // this.http.delete<Review>(this.url + '/' + idParam).toPromise();
+    console.log(idParam)
   }
   
-  editReview(reviewId, postTitle,postBody) {
+  editReview(reviewId, postTitle, postBody) {
 
     this.review.reviewId = reviewId;
     this.review.postTitle = postTitle;
@@ -44,8 +44,12 @@ export class ReviewService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
+    // this.http.post(this.url+reviewId, this.review).subscribe(
     this.http.post(this.url, this.review).subscribe(
-      (response) => console.log(response),
+      (response) => {
+        console.log(response);
+        return true;
+      },
       (error) => console.log(error)
     );
     return true;

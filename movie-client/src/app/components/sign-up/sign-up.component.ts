@@ -21,6 +21,9 @@ export class SignUpComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
+    if (sessionStorage.getItem('auth')) {
+      this.router.navigate(['home']);
+    }
   }
 
   validateEmail() {
@@ -57,11 +60,14 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     if (this.validateSignUp() && this.uniqueEmail()) {
-      if (this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName))) {
+      let token = this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName));
+      if (token) {
         this.success = true;
         setTimeout(() => this.seconds = '2 seconds', 1000);
         setTimeout(() => this.seconds = '1 second', 2000);
         setTimeout(() => this.router.navigate(['home']), 3000);
+
+        sessionStorage.setItem('auth', token);
       }
     }
   }

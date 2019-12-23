@@ -1,3 +1,6 @@
-<button class="btn btn-light" routerLink='login'>Log In/Sign Up</button>
-<button class="btn btn-light" routerLink='home'>Home</button>
-<button class="btn btn-light" routerLink='manager'>Manager</button>
+<div class="container">
+	<h3 (click)="main()" class="text text-info">CINEAPP</h3>
+	<button *ngIf="!login" class="btn btn-light" routerLink='login'>Log In/Sign Up</button>
+	<button *ngIf="login" class="btn btn-light" routerLink='home'>Home</button>
+	<button *ngIf="login" class="btn btn-light" (click)="logout()">Log Out</button>
+</div>
