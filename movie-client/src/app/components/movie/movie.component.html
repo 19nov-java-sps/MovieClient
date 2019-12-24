@@ -1,1 +1,3 @@
-<p>movie works!</p>
+   <li *ngFor="let movie of movies" (click)="moreInfo(movie)">
+    <img class="grow" src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'/>
+    </li>

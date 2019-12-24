@@ -22,6 +22,7 @@ import { ManagerUserComponent } from './components/manager-user/manager-user.com
 import { ManagerUserDetailComponent } from './components/manager-user-detail/manager-user-detail.component';
 import { ManagerReviewComponent } from './components/manager-review/manager-review.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
+import { MovieService } from './services/movie.service'
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { UserReviewComponent } from './components/user-review/user-review.compon
   ],
   providers: [
     AuthService,
-    UserService
+    UserService,
+    MovieService
   ],
   bootstrap: [AppComponent]
 })
