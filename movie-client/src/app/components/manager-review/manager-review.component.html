@@ -12,8 +12,8 @@
     </tr>
     <tr *ngFor="let review of reviews">
       <td>{{review.reviewId}}</td>
+      <td routerLink="/manager/users/{{review.userId}}"><a>{{review.userId}}</a></td>
       <td>{{review.movieId}}</td>
-      <td>{{review.userId}}</td>
       <td>{{review.postTitle}}</td>
       <td>{{review.postBody}}</td>
       <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>

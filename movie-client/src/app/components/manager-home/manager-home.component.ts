@@ -14,14 +14,12 @@ export class ManagerHomeComponent implements OnInit {
     let token = sessionStorage.getItem('auth');
     if (!token) {
       this.router.navigate(['']);
-    }
-
-    let manager = token.split(':')[1];
-    console.log(manager)
-    if (manager === 'false') {
-      this.router.navigate(['home']);
-    }
-
+    } else {
+      let manager = token.split(':')[1];
+      if (manager === 'false') {
+        this.router.navigate(['home']);
+      }
+    }    
   }
 
   logout() {
