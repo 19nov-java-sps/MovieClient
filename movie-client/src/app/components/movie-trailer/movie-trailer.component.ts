@@ -19,8 +19,8 @@ export class MovieTrailerComponent implements OnInit {
     if (this.token) {
       let tokenArr = this.token.split(':');
 
-      this.login = Boolean(tokenArr[0]);
-      this.manager = Boolean(tokenArr[1]);
+      this.login = !!tokenArr[0];
+      this.manager = tokenArr[1] === 'true';
     } else {
       this.login = false;
       this.manager = false;

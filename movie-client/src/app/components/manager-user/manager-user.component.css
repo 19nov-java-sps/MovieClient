@@ -1,3 +1,7 @@
 td:hover {
 	cursor: pointer;
 }
+
+input {
+	margin-right: 0.1%;
+}

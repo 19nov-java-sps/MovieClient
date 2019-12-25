@@ -102,9 +102,7 @@ export class UserDetailComponent implements OnInit {
     if (this.email === this.oldEmail && this.firstName == this.oldFirstName && this.lastName === this.oldLastName && (!this.password || this.password === this.oldPassword)) {
       this.noChange = true;
       setTimeout(() => this.noChange = false, 3000);
-    }
-
-    else if (this.validateUpdate() && this.uniqueEmail()) {
+    } else if (this.validateUpdate() && this.uniqueEmail()) {
       if (!this.password) this.password = this.oldPassword;
       if (this.userService.updateUser(this.user.userId, this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName))) {
         this.password = '';

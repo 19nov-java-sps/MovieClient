@@ -1,7 +1,15 @@
 <div class="container">
   <br>
-  <div>
+  <div *ngIf="!users.length">
+    <h3>No Users Found</h3>
+    <button class="btn btn-light" (click)="getAllUsers()">Back</button>
+  </div>
+  <div *ngIf="users.length">
     <h3 class="text text-secondary text-center">All Users</h3>
+    <div class="text text-right">
+      <input type="text" placeholder="User Id or Name" id="search-user" [(ngModel)]="searchCondition"/>
+      <button type="button" class="btn btn-outline-secondary btn-sm" (click)="search()">Search</button>
+    </div>
     <table class="table table-hover" *ngIf="users.length">
       <tr>
         <th>Id</th>

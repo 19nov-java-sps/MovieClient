@@ -41,8 +41,8 @@ export class ReviewService {
     this.review.postTitle = postTitle;
     this.review.postBody = postBody;
 
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
+    // let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'application/json');
 
     // this.http.post(this.url+reviewId, this.review).subscribe(
     this.http.post(this.url, this.review).subscribe(
@@ -52,7 +52,7 @@ export class ReviewService {
       },
       (error) => console.log(error)
     );
-    return true;
+    return false;
   }
 
 }
