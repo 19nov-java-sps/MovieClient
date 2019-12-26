@@ -16,12 +16,14 @@
         <th>Name</th>
         <th>Email</th>
         <th>Admin</th>
+        <th>Ban</th>
       </tr>
       <tr *ngFor="let user of users" routerLink="/manager/users/{{user.userId}}" >
         <td>{{user.userId}}</td>
         <td>{{user.firstName}} {{user.lastName}}</td>
         <td>{{user.emailAddress}}</td>
         <td>{{user.admin}}</td>
+        <td>{{user.isBan}}</td>
       </tr>
     </table>
     <div class="text text-center" id="page">

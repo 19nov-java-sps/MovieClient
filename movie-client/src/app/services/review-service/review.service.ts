@@ -31,21 +31,28 @@ export class ReviewService {
   }
 
   deleteReview(idParam) {
-    // this.http.delete<Review>(this.url + '/' + idParam).toPromise();
-    console.log(idParam)
+    let httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.delete(this.url+idParam, httpOption);
   }
   
-  editReview(reviewId, postTitle, postBody) {
+  editReview(reviewId, postTitle, postBody, movieTitle) {
 
     this.review.reviewId = reviewId;
     this.review.postTitle = postTitle;
     this.review.postBody = postBody;
+    this.review.movieTitle = movieTitle;
 
     // let headers = new HttpHeaders();
     // headers.append('Content-Type', 'application/json');
 
-    // this.http.post(this.url+reviewId, this.review).subscribe(
-    this.http.post(this.url, this.review).subscribe(
+    this.http.post(this.url+reviewId, this.review).subscribe(
+    // this.http.post(this.url, this.review).subscribe(
       (response) => {
         console.log(response);
         return true;

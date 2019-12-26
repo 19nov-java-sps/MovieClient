@@ -12,6 +12,7 @@ import { ManagerReviewComponent } from './components/manager-review/manager-revi
 import { UserReviewComponent } from './components/user-review/user-review.component';
 import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
 import { MovieComponent } from './components/movie/movie.component';
+import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
 
 const routes: Routes = [{
   path: '',
@@ -50,6 +51,9 @@ const routes: Routes = [{
     path: 'users/:id',
     component: ManagerUserDetailComponent
   }]}, {
+    path: 'movies/:id',
+    component: MovieDetailComponent
+  }, {
   path: '**',
   pathMatch: 'full',
   redirectTo: ''

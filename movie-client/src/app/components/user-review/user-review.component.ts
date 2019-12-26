@@ -89,7 +89,7 @@ export class UserReviewComponent implements OnInit {
       setTimeout(() => this.noChange = false, 3000);
 
     } else if (this.reviews[this.currentReviewIndex].postTitle.replace(/\s/g, '').length > 0 && this.reviews[this.currentReviewIndex].postBody.replace(/\s/g, '').length > 0) {
-      if (this.reviewService.editReview(this.currentReviewId, this.reviews[this.currentReviewIndex].postTitle.trim(), this.reviews[this.currentReviewIndex].postBody.trim())) {
+      if (this.reviewService.editReview(this.currentReviewId, this.reviews[this.currentReviewIndex].postTitle.trim(), this.reviews[this.currentReviewIndex].postBody.trim(), this.reviews[this.currentReviewIndex].movieTitle)) {
         this.enableEdit = false;
         this.currentReviewId = null;
         this.currentReviewIndex = null;
@@ -106,10 +106,11 @@ export class UserReviewComponent implements OnInit {
 
   delete(reviewId) {
     if (window.confirm("Do you really want to delete the review?")) { 
-      
-      this.reviewService.deleteReview(reviewId);
-  
-      // this.getUserReviews(this.userId);
+      this.reviewService.deleteReview(reviewId)
+      .subscribe((result) => {
+        console.log(result);
+        this.getUserReviews(this.userId);
+      });
     }
   }
 
