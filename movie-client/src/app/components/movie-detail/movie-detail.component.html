@@ -1,1 +1,13 @@
-<p>movie-detail works!</p>
+<div *ngIf="video && movie"> 
+	<img src='https://image.tmdb.org/t/p/w500{{movie.backdrop_path}}' class="card-img-top" alt="...">
+			<h1 class="display-4">{{movie.title}}</h1>
+			<span>{{movie.release_date}}</span>
+			<p class="lead">{{movie.tagline}}</p>
+			<p>{{movie.overview}}</p>
+			<a class="btn btn-primary btn-lg" href="#" (click)="addFavorite(movie)">Add to Favorites</a>
+	<a href="https://www.youtube.com/watch?v={{video[0].key}}" (click)="seeTrailer(movie)">
+			Launch Trailer
+			</a>
+</div>
+    
+    

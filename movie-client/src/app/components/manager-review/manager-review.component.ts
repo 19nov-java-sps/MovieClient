@@ -31,9 +31,11 @@ export class ManagerReviewComponent implements OnInit {
 
   delete(reviewId) {
     if (window.confirm("Delete the review?")) {
-      this.reviewService.deleteReview(reviewId);
-
-      // this.getAllReviews();
+      this.reviewService.deleteReview(reviewId)
+        .subscribe((result) => {
+          console.log(result);
+          this.getAllReviews();
+        });
     }
   }
 

@@ -29,9 +29,9 @@ export class UserService {
     this.user.firstName = firstName;
     this.user.password = password;
 
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
+    // let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
 
     let httpOption = {
       headers: new HttpHeaders({
@@ -58,11 +58,11 @@ export class UserService {
     this.user.firstName = firstName;
     this.user.password = password;
 
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Access-Control-Allow-Origin', '*');
+    // let headers = new HttpHeaders();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
 
-    this.http.post(this.url,this.user).subscribe(
+    this.http.post(this.url, this.user).subscribe(
     (response) => {
       console.log(response);
     },

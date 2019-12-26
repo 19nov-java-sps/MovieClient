@@ -29,6 +29,6 @@ export class MovieComponent implements OnInit {
   moreInfo(movie: Movie){
     console.log("movie is clicked")
     console.log(movie)
-
+    
   }
 }

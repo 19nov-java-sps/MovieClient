@@ -69,9 +69,13 @@ export class ManagerUserDetailComponent implements OnInit {
   }
 
   delete(reviewId) {
-    this.reviewService.deleteReview(reviewId);
-
-    this.getUserReviews();
+    if (window.confirm("Delete the review?")) {
+      this.reviewService.deleteReview(reviewId)
+        .subscribe((result) => {
+          console.log(result);
+          this.getUserReviews();
+        });
+    }
   }
 
   ban() {
