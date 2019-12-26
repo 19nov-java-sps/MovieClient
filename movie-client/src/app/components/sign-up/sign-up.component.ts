@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   firstName: string = '';
   lastName: string = '';
 
+  enable: boolean = true;
   success: boolean = false;
   seconds: string = '3 seconds';
 
@@ -62,6 +63,7 @@ export class SignUpComponent implements OnInit {
     if (this.validateSignUp() && this.uniqueEmail()) {
       let token = this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName));
       if (token) {
+        this.enable = false;
         this.success = true;
         setTimeout(() => this.seconds = '2 seconds', 1000);
         setTimeout(() => this.seconds = '1 second', 2000);

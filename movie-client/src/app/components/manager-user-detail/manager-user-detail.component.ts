@@ -13,7 +13,12 @@ import { Review } from 'src/app/models/review';
 export class ManagerUserDetailComponent implements OnInit {
 
   currentUser: User = new User();
+
+  allReviews: Review[] = [];
   reviews: Review[] = [];
+
+  totalPage: number = 1;
+  curPage: number = 1;
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private reviewService: ReviewService) { }
 
@@ -44,11 +49,23 @@ export class ManagerUserDetailComponent implements OnInit {
   getUserReviews() {
     this.reviewService.getReviewsByUserId(this.currentUser.userId)
       .then((response)=>{
-        this.reviews = response;
+        this.allReviews = response;
+        this.totalPage = Math.ceil(this.allReviews.length / 7);
+        this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
       })
       .catch((e)=>{
         console.warn(e);
       });
+  }
+
+  prevPage() {
+    this.curPage--;
+    this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
+  }
+
+  nextPage() {
+    this.curPage++;
+    this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
   }
 
   delete(reviewId) {

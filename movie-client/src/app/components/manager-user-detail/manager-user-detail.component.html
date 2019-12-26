@@ -37,6 +37,11 @@
           <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
         </tr>
       </table>
+      <div class="text text-center" id="page">
+        <button class="btn btn-light btn-sm" *ngIf="curPage>1" (click)="prevPage()"><-</button>
+        <input id="curPage" [value]="curPage" disabled/>. . . {{totalPage}}
+        <button class="btn btn-light btn-sm" *ngIf="curPage<totalPage" (click)="nextPage()">-></button>
+      </div>
     </div>
   </div>
 </div>

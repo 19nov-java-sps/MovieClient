@@ -5,3 +5,7 @@ small {
 h3 {
   cursor: pointer;
 }
+
+a {
+  margin-left: 1%;
+}

@@ -52,7 +52,7 @@ export class ReviewService {
       },
       (error) => console.log(error)
     );
-    return false;
+    return true;
   }
 
 }

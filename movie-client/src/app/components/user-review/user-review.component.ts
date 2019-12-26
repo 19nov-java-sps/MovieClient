@@ -11,7 +11,11 @@ import { Review } from 'src/app/models/review';
 export class UserReviewComponent implements OnInit {
 
   userId: number;
+
   reviews: Review[] = [];
+  allReviews: Review[] = [];
+  totalPage: number = 1;
+  curPage: number = 1;
 
   currentReviewIndex: number = null;
   currentReviewId: number = null;
@@ -28,6 +32,18 @@ export class UserReviewComponent implements OnInit {
   ngOnInit() {
     this.userId = Number(sessionStorage.getItem('auth').split(':')[0]);
     this.getUserReviews(this.userId);
+  }
+
+  getUserReviews(userId) {
+    this.reviewService.getReviewsByUserId(userId)
+      .then((response)=>{
+        this.allReviews = response;
+        this.totalPage = Math.ceil(this.allReviews.length / 5);
+        this.reviews = this.allReviews.slice(this.curPage * 5 - 5, this.curPage * 5);
+      })
+      .catch((e)=>{
+        console.warn(e);
+      });
   }
 
   edit(reviewId) {
@@ -59,16 +75,6 @@ export class UserReviewComponent implements OnInit {
     
   }
 
-  getUserReviews(userId) {
-    this.reviewService.getReviewsByUserId(userId)
-      .then((response)=>{
-        this.reviews = response;
-      })
-      .catch((e)=>{
-        console.warn(e);
-      });
-  }
-
   getReview(reviewId: number) {
 
     this.currentReviewIndex = this.reviews.findIndex(review => review.reviewId === reviewId);
@@ -88,7 +94,6 @@ export class UserReviewComponent implements OnInit {
         this.currentReviewId = null;
         this.currentReviewIndex = null;
 
-        // this.getUserReviews(this.userId);
       } else {
         console.log('Server Error')
       }
@@ -104,7 +109,7 @@ export class UserReviewComponent implements OnInit {
       
       this.reviewService.deleteReview(reviewId);
   
-      this.getUserReviews(this.userId);
+      // this.getUserReviews(this.userId);
     }
   }
 
@@ -114,6 +119,16 @@ export class UserReviewComponent implements OnInit {
 
     this.reviews[this.currentReviewIndex].postTitle = this.oldTitle;
     this.reviews[this.currentReviewIndex].postBody = this.oldBody;
+  }
+
+  prevPage() {
+    this.curPage--;
+    this.reviews = this.allReviews.slice(this.curPage * 5 - 5, this.curPage * 5);
+  }
+
+  nextPage() {
+    this.curPage++;
+    this.reviews = this.allReviews.slice(this.curPage * 5 - 5, this.curPage * 5);
   }
 
   home() {

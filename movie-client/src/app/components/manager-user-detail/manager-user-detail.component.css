@@ -1,3 +1,11 @@
 #ban-btn {
 	float: right;
 }
+
+#curPage {
+	border: none;
+	width: 1.5em;
+	background-color: white;
+	margin-left: 1%;
+	margin-right: 1%;
+}

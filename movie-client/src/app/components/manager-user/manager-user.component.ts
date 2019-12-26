@@ -11,7 +11,11 @@ export class ManagerUserComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
+  allUsers: User[] = [];
   users: User[] = [];
+  totalPage: number = 1;
+  curPage: number = 1;
+
   searchCondition: string = '';
 
   ngOnInit() {
@@ -21,8 +25,20 @@ export class ManagerUserComponent implements OnInit {
   getAllUsers() {
     this.userService.getUsers()
       .subscribe((allUsers)=>{
-        this.users = allUsers;
-    });
+        this.allUsers = allUsers;
+        this.totalPage = Math.ceil(this.allUsers.length / 10);
+        this.users = this.allUsers.slice(this.curPage * 10 - 10, this.curPage * 10);
+      });
+  }
+
+  nextPage() {
+    this.curPage++;
+    this.users = this.allUsers.slice(this.curPage * 10 - 10, this.curPage * 10);
+  }
+
+  prevPage() {
+    this.curPage--;
+    this.users = this.allUsers.slice(this.curPage * 10 - 10, this.curPage * 10);
   }
 
   search() {
@@ -32,21 +48,30 @@ export class ManagerUserComponent implements OnInit {
       let condition = Number(this.searchCondition);
       this.userService.getUsers()
       .subscribe((allUsers)=>{
-        this.users = allUsers.filter(user => user.userId === condition);
+        this.allUsers = allUsers.filter(user => user.userId === condition);
+        this.users = this.allUsers.slice(0, 10);
+        this.totalPage = Math.ceil(this.allUsers.length / 10);
+        this.curPage = 1;
       });
     } else if (this.searchCondition.includes(' ')) {
       this.userService.getUsers()
       .subscribe((allUsers)=>{
-        this.users = allUsers.filter(user => {
+        this.allUsers = allUsers.filter(user => {
           return (user.firstName + ' ' + user.lastName).toLowerCase() === this.searchCondition.toLowerCase();
         });
+        this.users = this.allUsers.slice(0, 10);
+        this.totalPage = Math.ceil(this.allUsers.length / 10);
+        this.curPage = 1;
       });
     } else {
       this.userService.getUsers()
       .subscribe((allUsers)=>{
-        this.users = allUsers.filter(user => {
+        this.allUsers = allUsers.filter(user => {
           return user.firstName.toLowerCase() === this.searchCondition.toLowerCase() || user.lastName.toLowerCase() === this.searchCondition.toLowerCase();
         })
+        this.users = this.allUsers.slice(0, 10);
+        this.totalPage = Math.ceil(this.allUsers.length / 10);
+        this.curPage = 1;
       });
     }
 

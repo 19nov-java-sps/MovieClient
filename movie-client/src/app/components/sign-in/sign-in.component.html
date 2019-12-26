@@ -1,15 +1,12 @@
 <div class="container">
-  <nav>
-    <h3 (click)="main()" class="text text-info">CINEAPP</h3>
-    <button class="btn btn-light" routerLink='login'>Log In/Sign Up</button>
-  </nav>
+  <h3 (click)="main()" class="text text-info">CINEAPP</h3>
   <form class="form-group">
     <div class="form-group">
-      <label for="email">Email</label>
+      <label for="email">Email</label><br>
       <input id="email" type="text" placeholder="Email" [(ngModel)]="email" name="email" autofocus autocomplete="off">
     </div>
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Password</label><br>
       <input id="password" type="password" placeholder="Password" [(ngModel)]="password" name="password">
     </div>
     <div class="form-group">
@@ -17,5 +14,5 @@
     </div>
     <div class="alert alert-danger" [hidden]="!failed">Wrong Eamil or Password</div>
   </form>
-  <p>No Account? <a (click)="signUp()">Sign Up</a></p>
+  <p>No Account? <a routerLink='/sign-up'>Sign Up</a></p>
 </div>

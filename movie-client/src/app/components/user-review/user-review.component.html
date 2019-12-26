@@ -10,7 +10,7 @@
         <th>Content</th>
       </tr>
       <tr *ngFor="let review of reviews">
-        <td>{{review.movieId}}</td>
+        <td>{{review.movieTitle}}</td>
         <td><textarea class="form-control" placeholder="Title" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postTitle">{{review.postTitle}}</textarea></td>
         <td><textarea class="form-control" placeholder="Write Your Review Here" [readonly]="!(review.reviewId === currentReviewId)" [(ngModel)]="review.postBody">{{review.postBody}}</textarea></td>
         <td><button class="btn btn-sm btn-info" (click)="edit(review.reviewId)">Edit</button></td>
@@ -26,6 +26,11 @@
     <div *ngIf="enableEdit" class="text-center">
       <button class="btn btn-primary" type="button" (click)="editReview()">Submit</button>
       <button class="btn btn-secondary" type="button" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="text text-center" id="page">
+      <button [disabled]="enableEdit" class="btn btn-light btn-sm" *ngIf="curPage>1" (click)="prevPage()"><-</button>
+      <input id="curPage" [value]="curPage" disabled/>. . . {{totalPage}}
+      <button [disabled]="enableEdit" class="btn btn-light btn-sm" *ngIf="curPage<totalPage" (click)="nextPage()">-></button>
     </div>
   </div>
   <button class="btn btn-light" (click)="home()">Return</button>
