@@ -1,3 +1,12 @@
-   <li *ngFor="let movie of movies" (click)="moreInfo(movie)" routerLink="/movies/{{movie.id}}">
-    <img class="grow" src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'/>
-    </li>
+<div class="container">
+	<div>
+		<h3>Upcoming Movies</h3>
+		<div>
+			<input type="text" placeholder="Search Movie" [(ngModel)]="SearchCondition">
+			<button class="btn btn-outline-secondary btn-sm" (click)="search()">Search</button>
+		</div>
+	</div>
+	<li *ngFor="let movie of movies" (click)="moreInfo(movie)" routerLink="/movies/{{movie.id}}">
+		<img class="grow" src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'/>
+	</li>
+</div>

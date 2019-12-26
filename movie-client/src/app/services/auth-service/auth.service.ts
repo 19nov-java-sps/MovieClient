@@ -34,7 +34,7 @@ export class AuthService {
     this.http.post(this.url, this.user).subscribe(
       (response) => {
         // console.log(response.headers.get('Authorization'));
-        token = '2:true';
+        // token = '2:true';
         console.log(response);
       },
       (error) => console.warn(error)

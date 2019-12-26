@@ -10,25 +10,30 @@ import { Movie } from '../../models/movie';
 })
 export class MovieComponent implements OnInit {
 
-  movies: Movie[]
+  movies: Movie[];
+  SearchCondition: string = '';
 
   constructor(private movieService: MovieService) {
 
   }
 
   ngOnInit() {
-    this.getUpcomingMovies()
-    console.log(this.movies)
+    this.getUpcomingMovies();
   }
 
   getUpcomingMovies(): void {
-    this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]))
+    this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]));
  
   }
   
   moreInfo(movie: Movie){
-    console.log("movie is clicked")
-    console.log(movie)
-    
+  }
+
+  search() {
+    if (this.SearchCondition === '') {
+      this.getUpcomingMovies();
+    } else {
+      this.movieService.searchMovie(this.SearchCondition).subscribe(data => this.movies = (data["results"]));
+    }
   }
 }
