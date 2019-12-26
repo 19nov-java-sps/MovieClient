@@ -108,7 +108,7 @@ export class UserDetailComponent implements OnInit {
         this.password = '';
         this.confirmPass = '';
         this.success = true;
-        this.getUser(this.userId);
+        // this.getUser(this.userId);
         setTimeout(() => this.success = false, 3000);
       }
     }

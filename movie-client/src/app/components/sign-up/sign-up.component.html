@@ -1,15 +1,12 @@
 <div class="container">
-  <nav>
-    <h3 (click)="main()" class="text text-info">CINEAPP</h3>
-    <button class="btn btn-light" routerLink='login'>Log In/Sign Up</button>
-  </nav>
+  <h3 (click)="main()" class="text text-info">CINEAPP</h3>
   <div class="alert alert-success" *ngIf="success">
     <strong>Success!</strong> You will be redirect to the home Page After {{seconds}}.
   </div>
   <form class="form-group" id="sign-up-form">
     <div class="form-group">
       <label for="email">Email <small>*</small></label><br>
-      <input id="email" type="email" placeholder="Email" [(ngModel)]="email" name="email" required><br>
+      <input id="email" type="email" placeholder="Email" [(ngModel)]="email" name="email" required autocomplete="off"><br>
       <small *ngIf="email.length && !validateEmail()">Invalid Email</small>
       <small *ngIf="!uniqueEmail()">Email Already In Use</small>
     </div>
@@ -34,7 +31,8 @@
       <small *ngIf="lastName.length && !validateLastName()">Invalid Name</small>
     </div>
     <div class="form-group">
-      <button id="sign-up-btn" class="btn btn-primary" type="button" (click)="signUp()" [disabled]="!(email && password && confirmPass && firstName && lastName)">Sign Up</button>
+      <button id="sign-up-btn" class="btn btn-primary" type="button" (click)="signUp()" [disabled]="!(email && password && confirmPass && firstName && lastName && enable)">Sign Up</button>
+      <a routerLink='/login'>Login</a>
     </div>
   </form>
 </div>

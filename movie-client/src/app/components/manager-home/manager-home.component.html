@@ -1,11 +1,14 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <h3 (click)="main()" class="text text-info" id="title">CINEAPP</h3>
-    <h3 class="text text-light">Manager Home</h3>
+    <h3 (click)="main()" class="text text-info">CINEAPP</h3>
+    <h3 class="text text-light" routerLink="/manager">Manager Home</h3>
     <button id="first-btn" class="btn btn-dark" routerLink='./users'>All Users</button>
     <button class="btn btn-dark" routerLink='./reviews'>Reviews</button>
     <button class="btn btn-dark" (click)="logout()">Log Out</button>
   </nav>
-
+  <br><br>
+  <div>
+    <p>You have <strong>0</strong> reports need solve</p>
+  </div>
 </div>
 <router-outlet></router-outlet>

@@ -1,12 +1,17 @@
 <div class="container">
   <br>
-  <div>
+  <div *ngIf="!reviews.length">
+    <h3>No Reviews Found</h3>
+    <button class="btn btn-light" routerLink="/manager">Back</button>
+  </div>
+  <div *ngIf="reviews.length">
     <h3  class="text text-secondary text-center">All Reviews</h3>
     <table class="table table-hover" *ngIf="reviews.length">
     <tr>
       <th>Id</th>
       <th>User</th>
       <th>Movie</th>
+      <th>Movie Title</th>
       <th>Title</th>
       <th>Content</th>
     </tr>
@@ -14,10 +19,16 @@
       <td>{{review.reviewId}}</td>
       <td routerLink="/manager/users/{{review.userId}}"><a>{{review.userId}}</a></td>
       <td>{{review.movieId}}</td>
+      <td>{{review.movieTitle}}</td>
       <td>{{review.postTitle}}</td>
       <td>{{review.postBody}}</td>
       <td><button class="btn btn-sm btn-danger" (click)="delete(review.reviewId)">Delete</button></td>
     </tr>
     </table>
+    <div class="text text-center" id="page">
+      <button class="btn btn-light btn-sm" *ngIf="curPage>1" (click)="prevPage()"><-</button>
+      <input id="curPage" [value]="curPage" disabled/>. . . {{totalPage}}
+      <button class="btn btn-light btn-sm" *ngIf="curPage<totalPage" (click)="nextPage()">-></button>
+    </div>
   </div>
 </div>

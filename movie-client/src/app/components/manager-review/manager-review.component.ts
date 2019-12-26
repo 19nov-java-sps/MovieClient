@@ -9,7 +9,10 @@ import { Review } from 'src/app/models/review';
 })
 export class ManagerReviewComponent implements OnInit {
 
+  allReviews: Review[] = [];
   reviews: Review[] = [];
+  totalPage: number = 1;
+  curPage: number = 1;
 
   constructor(private reviewService: ReviewService) { }
 
@@ -20,14 +23,28 @@ export class ManagerReviewComponent implements OnInit {
   getAllReviews() {
     this.reviewService.getReviews()
       .subscribe((allReviews)=>{
-        this.reviews = allReviews;
+        this.allReviews = allReviews;
+        this.totalPage = Math.ceil(this.allReviews.length / 7);
+        this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
     });
   }
 
   delete(reviewId) {
-    this.reviewService.deleteReview(reviewId);
+    if (window.confirm("Delete the review?")) {
+      this.reviewService.deleteReview(reviewId);
 
-    this.getAllReviews();
+      // this.getAllReviews();
+    }
+  }
+
+  prevPage() {
+    this.curPage--;
+    this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
+  }
+
+  nextPage() {
+    this.curPage++;
+    this.reviews = this.allReviews.slice(this.curPage * 7 - 7, this.curPage * 7);
   }
 
 }

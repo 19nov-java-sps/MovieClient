@@ -2,7 +2,7 @@
   <br>
   <div *ngIf="!users.length">
     <h3>No Users Found</h3>
-    <button class="btn btn-light" (click)="getAllUsers()">Back</button>
+    <button class="btn btn-light" routerLink="/manager">Back</button>
   </div>
   <div *ngIf="users.length">
     <h3 class="text text-secondary text-center">All Users</h3>
@@ -24,5 +24,10 @@
         <td>{{user.admin}}</td>
       </tr>
     </table>
+    <div class="text text-center" id="page">
+      <button class="btn btn-light btn-sm" *ngIf="curPage>1" (click)="prevPage()"><-</button>
+      <input id="curPage" [value]="curPage" disabled/>. . . {{totalPage}}
+      <button class="btn btn-light btn-sm" *ngIf="curPage<totalPage" (click)="nextPage()">-></button>
+    </div>
   </div>
 </div>
