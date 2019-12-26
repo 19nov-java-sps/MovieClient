@@ -22,17 +22,22 @@ export class MovieDetailComponent implements OnInit {
       this.getTrailer(param['id']);
     })
   }
+
   getMovieDetails(movieId){
-    this.movieService.getMovie(movieId).subscribe(data => this.movie = data)
+    this.movieService.getMovie(movieId).subscribe(data => this.movie = data);
   }
+
   getTrailer(movieId){
-    this.movieService.getTrailer(movieId).subscribe(data => this.video = data["results"])
+    this.movieService.getTrailer(movieId).subscribe(data => this.video = data["results"]);
   }
-  addFavorite(movie : Movie){
-    console.log(movie)
+
+  addFavorite(movie: Movie){
+    let userId = Number(sessionStorage.getItem('auth').split(':')[0]);
+    this.movieService.addMovieToFav(movie, userId);
   }
+
   seeTrailer(){
-    this.trailerButtonPressed = !this.trailerButtonPressed
+    this.trailerButtonPressed = !this.trailerButtonPressed;
   }
 
 }
