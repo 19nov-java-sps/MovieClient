@@ -11,6 +11,7 @@ import { ManagerUserDetailComponent } from './components/manager-user-detail/man
 import { ManagerReviewComponent } from './components/manager-review/manager-review.component';
 import { UserReviewComponent } from './components/user-review/user-review.component';
 import { MovieTrailerComponent } from './components/movie-trailer/movie-trailer.component';
+import { MovieComponent } from './components/movie/movie.component';
 
 const routes: Routes = [{
   path: '',
@@ -33,6 +34,9 @@ const routes: Routes = [{
   }, {
     path: 'reviews',
     component: UserReviewComponent
+  }, {
+    path: '',
+    component: MovieComponent
   }]}, {
   path: 'manager',
   component: ManagerHomeComponent,

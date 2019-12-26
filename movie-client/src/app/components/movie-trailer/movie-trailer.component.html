@@ -3,7 +3,7 @@
 		<h3 class="text text-info">CINEAPP</h3>
 		<button *ngIf="!login" class="btn btn-light" routerLink='/login'>Log In/Sign Up</button>
 		<button *ngIf="login" class="btn btn-light" routerLink='/home'>Home</button>
-		<button *ngIf="manager" class="btn btn-light" routerLink='/manager'>Manager</button>
+		<button *ngIf="manager" class="btn btn-light" routerLink='/manager/users'>Manager</button>
 		<button *ngIf="login" class="btn btn-light" (click)="logout()">Log Out</button>
 	</nav>
 	<div>
