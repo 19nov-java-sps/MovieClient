@@ -14,6 +14,7 @@ Welcome to the CineApp where movie afficionados can create accounts and find out
 Built with 
 	Angular
 	The Movie Database API
+	Bootstrap
 
 
 ### Credits
