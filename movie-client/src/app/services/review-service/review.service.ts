@@ -8,8 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ReviewService {
 
-  // url: string = 'http://34.205.129.232:8080/PBJCinema/reviews/';
-  url: string = 'localhost:8080/PBJCinema/reviews/';
+  url: string = 'http://54.234.113.103:8080/PBJCinema/reviews/';
 
   review: Review = new Review();
 
@@ -24,8 +23,11 @@ export class ReviewService {
   }
 
   getReviewsByUserId(idParam: number) {
-    // return this.http.get<Review[]>('http://34.205.129.232:8080/PBJCinema/users/' + idParam + '/reviews').toPromise();
-    return this.http.get<Review[]>('localhost:8080/PBJCinema/users/' + idParam + '/reviews').toPromise();
+    return this.http.get<Review[]>('http://54.234.113.103:8080/PBJCinema/users/' + idParam + '/reviews').toPromise();
+  }
+
+  getReviewsByMovieId(idParam: number) {
+    // return this.http.get<Review[]>('http://54.234.113.103:8080/PBJCinema/movies/' + idParam + '/reviews').toPromise();
   }
 
   createReview(body) {

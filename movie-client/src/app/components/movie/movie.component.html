@@ -1,6 +1,10 @@
 <div class="container">
 	<br>
-	<div>
+	<div *ngIf="!allMovies.length">
+		<h3>No Movies Found</h3>
+		<button class="btn btn-light" (click)="back()">Back</button>
+	</div>
+	<div *ngIf="allMovies.length">
 		<div class="d-flex justify-content-start">
 			<h3>Upcoming Movies</h3>
 		</div>
@@ -8,8 +12,13 @@
 			<input type="text" placeholder="Search Movie" [(ngModel)]="SearchCondition">
 			<button class="btn btn-outline-secondary btn-sm" (click)="search()">Search</button>
 		</div>
-	</div>
-	<li *ngFor="let movie of movies" (click)="moreInfo(movie)" routerLink="/movies/{{movie.id}}">
-		<img class="grow" src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'/>
-	</li>
+		<li *ngFor="let movie of movies" routerLink="/movies/{{movie.id}}">
+			<img class="grow" src='https://image.tmdb.org/t/p/w500{{movie.poster_path}}'/>
+		</li>
+		<div class="text text-center" id="page">
+			<button class="btn btn-light btn-sm" *ngIf="curPage>1" (click)="prevPage()"><-</button>
+			<input id="curPage" [value]="curPage" disabled/>. . . {{totalPage}}
+			<button class="btn btn-light btn-sm" *ngIf="curPage<totalPage" (click)="nextPage()">-></button>
+		</div>
+	</div><br>
 </div>

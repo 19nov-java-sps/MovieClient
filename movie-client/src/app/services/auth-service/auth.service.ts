@@ -1,7 +1,7 @@
 import { Injectable, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../../models/user';
 import{Users} from 'src/app/models/users';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,9 +19,7 @@ export class AuthService {
   };
 
   private auth: string;
-  private token: string;
-  url: string = 'http://localhost:8080/PBJCinema/login';
-  result: User = new User();
+  url: string = 'http://54.234.113.103:8080/PBJCinema/login';
 
   constructor(private http: HttpClient) { }
 
@@ -30,17 +28,13 @@ export class AuthService {
     this.user.emailAddress = email;
     this.user.password = password;
     
-    this.http.post(this.url, this.user,this.httpOptions).subscribe(
+    this.http.post(this.url, this.user, this.httpOptions).subscribe(
       (response) => {
         this.auth = (response["headers"].get("Authorization"));
-        sessionStorage.setItem("token", this.auth);
-        this.token = sessionStorage.getItem("token");
-        console.log(response);
+        sessionStorage.setItem("auth", this.auth);
+        console.log(response)
       },
       (error) => console.warn(error)
     );
-  
-    // return this.token;
-    return '2:true'
   }
 }

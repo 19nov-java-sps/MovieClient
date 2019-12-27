@@ -36,3 +36,13 @@ footer a {
 	margin-top: 10%;
 	max-height: 380px;
 }
+
+a {
+	color: lightgray;
+	margin-right: 3%;
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}

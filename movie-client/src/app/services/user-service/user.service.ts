@@ -4,18 +4,19 @@ import { User } from '../../models/user';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Users } from 'src/app/models/users';
+import { AuthService } from '../auth-service/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  // url: string = 'http://34.205.129.232:8080/PBJCinema/users/';
-  url: string = 'localhost:8080/PBJCinema/users/';
+  url: string = 'http://54.234.113.103:8080/PBJCinema/users/';
 
   user: Users = new Users();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router: Router) { }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.url);
@@ -56,18 +57,21 @@ export class UserService {
     this.user.firstName = firstName;
     this.user.password = password;
 
-    // let headers = new HttpHeaders();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Access-Control-Allow-Origin', '*');
-
     this.http.post(this.url, this.user, {observe: 'response'}).subscribe(
     (response) => {
       console.log(response);
+      this.authService.login(email, password);
     },
       (error) => console.warn(error)
     );
-
-    return '30:false';
+    
+    setTimeout(() => {
+      if (sessionStorage.getItem('auth')) {
+        this.router.navigate(['home']);
+      } else {
+        console.log('Failed!');
+      }
+    }, 3000)
   }
 
   

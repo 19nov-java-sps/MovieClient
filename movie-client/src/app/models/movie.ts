@@ -1,8 +1,9 @@
 export class Movie {
-    movieId: number;
+    id: number;
     title: string;
-    releaseDate: string;
-    summary: string;
+    release_date: string;
+    overview: string;
     length: number;
-    image: string = "https://image.tmdb.org/t/p/w500"
+    poster_path: string = "https://image.tmdb.org/t/p/w500";
+    tagline: string;
 }

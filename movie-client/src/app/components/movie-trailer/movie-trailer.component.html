@@ -8,7 +8,7 @@
 	</nav>
 	<div class="row">
 		<div class="col-6">
-			<img src="https://image.tmdb.org/t/p/w500{{movies[ramdomMovie].poster_path}}" routerLink="movies/{{movies[ramdomMovie].id}}" alt="Movie">
+			<img *ngIf="movies.length" src="https://image.tmdb.org/t/p/w500{{movies[ramdomMovie].poster_path}}" routerLink="movies/{{movies[ramdomMovie].id}}" alt="Movie">
 		</div>
 		<div class="col-6 text text-center jumbotron" id="a">
 			<h2>Explore More Movies</h2>
@@ -21,7 +21,21 @@
 	</div>
 	<footer>
 		<a>About Us</a>
-		<a>Meet The Team</a>
+		<a (click)="displayTeam()">Meet The Team</a>
 		<a>Copyright</a>
 	</footer>
+	<div *ngIf="displayButtonPressed">
+		<div class="row">
+			<div *ngFor="let person of team">
+			<div class="column">
+				<div class="card">
+				<div class="container">
+					<h2>{{person.name}}</h2>
+					<p class="title">{{person.position}}</p>
+					<a>{{person.github}}</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

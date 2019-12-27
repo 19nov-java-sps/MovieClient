@@ -3,6 +3,8 @@ import { Movie } from 'src/app/models/movie';
 import { MovieService } from 'src/app/services/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer} from '@angular/platform-browser';
+import { ReviewService } from 'src/app/services/review-service/review.service';
+import { Review } from 'src/app/models/review';
 
 @Component({
   selector: 'app-movie-detail',
@@ -12,25 +14,29 @@ import { DomSanitizer} from '@angular/platform-browser';
 export class MovieDetailComponent implements OnInit {
 
   token: string = '';
-  login: boolean = false;
+  userId: number;
 
-  movie: Movie;
+  movie: Movie = new Movie();
   video: any;
+  reviews: Review[] = [];
 
-  constructor( private movieService: MovieService, private route: ActivatedRoute, private sanititizer: DomSanitizer, private router: Router ) { }
+  constructor( private movieService: MovieService, private reviewService: ReviewService, private route: ActivatedRoute, private sanititizer: DomSanitizer, private router: Router ) { }
+  
   ngOnInit() {
     this.token = sessionStorage.getItem('auth');
 
     if (this.token) {
       let tokenArr = this.token.split(':');
-      this.login = !!tokenArr[0];
+      this.userId = Number(tokenArr[0]);
     } else {
-      this.login = false;
+      this.userId = null;
     }
 
     this.route.params.subscribe(param => {
+      this.movie.id = param['id'];
       this.getMovieDetails(param['id']);
       this.getTrailer(param['id']);
+      this.getMovieReviews();
     })
   }
 
@@ -42,13 +48,32 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getTrailer(movieId).subscribe(data => this.video = data["results"]);
   }
 
+  getMovieReviews() {
+    this.reviewService.getReviewsByMovieId(this.movie.id);
+  }
+
   addFavorite(movie: Movie){
-    let userId = Number(sessionStorage.getItem('auth').split(':')[0]);
-    this.movieService.addMovieToFav(movie, userId);
+    if (!this.userId) {
+      alert('Please Login or Sign Up!')
+    } else {
+      this.movieService.addMovieToFav(movie, this.userId);
+    }
   }
 
   watch(){
-    // code
+    if (!this.userId) {
+      alert('Please Login or Sign Up!')
+    } else {
+      window.open('http://www.e-try.com/black.htm', '_blank');
+    }
+  }
+
+  post() {
+    if (!this.userId) {
+      alert('Please Login or Sign Up!')
+    } else {
+      console.log(this.userId)
+    }
   }
 
   getEmbedUrl(location) {
@@ -56,13 +81,13 @@ export class MovieDetailComponent implements OnInit {
   }
 
   back() {
-    this.login ? this.router.navigate(['home']) : this.router.navigate(['']);
+    this.userId ? this.router.navigate(['home']) : this.router.navigate(['']);
   }
 
   logout() {
     sessionStorage.clear();
     this.token = '';
-    this.login = false;
+    this.userId = null;
   }
 
 }
