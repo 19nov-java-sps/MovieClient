@@ -25,9 +25,6 @@ export class MovieComponent implements OnInit {
     this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]));
  
   }
-  
-  moreInfo(movie: Movie){
-  }
 
   search() {
     if (this.SearchCondition === '') {

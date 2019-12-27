@@ -25,8 +25,8 @@ export class SignInComponent implements OnInit {
     let token = this.authService.login(this.email, this.password);
     
     if (token) {
-      sessionStorage.setItem('auth' ,token);
-      this.router.navigate(['']);
+      sessionStorage.setItem('auth', token);
+      this.router.navigate(['home']);
     } else {
       this.failed = true;
       setTimeout(() => this.failed = false, 3000);

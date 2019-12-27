@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/models/movie';
 import { MovieService } from 'src/app/services/movie.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-detail',
@@ -10,14 +11,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MovieDetailComponent implements OnInit {
 
-  movie: Movie
-  trailerButtonPressed: boolean = false
-  // @Input() movieId : string
-  video: any
-  constructor( private movieService: MovieService, private route: ActivatedRoute ) { }
+  token: string = '';
+  login: boolean = false;
+
+  movie: Movie;
+  video: any;
+
+  constructor( private movieService: MovieService, private route: ActivatedRoute, private sanititizer: DomSanitizer, private router: Router ) { }
   ngOnInit() {
+    this.token = sessionStorage.getItem('auth');
+
+    if (this.token) {
+      let tokenArr = this.token.split(':');
+      this.login = !!tokenArr[0];
+    } else {
+      this.login = false;
+    }
+
     this.route.params.subscribe(param => {
-      
       this.getMovieDetails(param['id']);
       this.getTrailer(param['id']);
     })
@@ -36,8 +47,22 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.addMovieToFav(movie, userId);
   }
 
-  seeTrailer(){
-    this.trailerButtonPressed = !this.trailerButtonPressed;
+  watch(){
+    // code
+  }
+
+  getEmbedUrl(location) {
+    return this.sanititizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/`+location);
+  }
+
+  back() {
+    this.login ? this.router.navigate(['home']) : this.router.navigate(['']);
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.token = '';
+    this.login = false;
   }
 
 }

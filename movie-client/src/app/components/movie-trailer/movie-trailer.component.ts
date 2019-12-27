@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieService } from 'src/app/services/movie.service';
+import { Movie } from 'src/app/models/movie';
 
 @Component({
   selector: 'app-movie-trailer',
@@ -10,8 +12,11 @@ export class MovieTrailerComponent implements OnInit {
   token: string = '';
   login: boolean = false;
   manager: boolean = false;
+  
+  movies: Movie[] = [];
+  ramdomMovie: number = Math.floor(Math.random() * 10); 
 
-  constructor() { }
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
     this.token = sessionStorage.getItem('auth');
@@ -25,6 +30,8 @@ export class MovieTrailerComponent implements OnInit {
       this.login = false;
       this.manager = false;
     }
+
+    this.getUpcomingMovies();
   }
 
   logout() {
@@ -32,6 +39,10 @@ export class MovieTrailerComponent implements OnInit {
     this.token = '';
     this.login = false;
     this.manager = false;
+  }
+
+  getUpcomingMovies(): void {
+    this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]));
   }
 
 }

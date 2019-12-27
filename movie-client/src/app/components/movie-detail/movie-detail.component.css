@@ -1,0 +1,45 @@
+#home-btn, #post {
+	float: right;
+	margin-right: 2%;
+}
+
+#post {
+	margin-top: 1.8%;
+}
+
+u {
+	text-decoration: none;
+	border-bottom: 1px solid whitesmoke;
+	padding-right: 20%;
+}
+
+iframe {
+	height: 80vh;
+	width: 70vw;
+}
+
+#watch {
+	margin-left: 1%;
+}
+
+nav {
+  border-radius: 0 0 1em 1em;
+}
+
+h3 {
+  float: left;
+  margin-left: 5%;
+  cursor: pointer;
+}
+
+nav button {
+	margin-right: 1.2%;
+}
+
+#login-btn {
+	margin-left: 66%;
+}
+
+#home-btn {
+	margin-left: 62%;
+}

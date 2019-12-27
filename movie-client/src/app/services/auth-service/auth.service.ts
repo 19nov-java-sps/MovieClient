@@ -1,46 +1,46 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../models/user';
 import{Users} from 'src/app/models/users';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   user: Users = {
     firstName:" ",
     lastName: " ",
     emailAddress:" ",
     password: " "
-
   };
 
-  url: string = 'http://34.205.129.232:8080/PBJCinema/login';
+  private httpOptions = {
+    headers: new HttpHeaders({"Content-Type": "application/json"}),
+    observe: "response" as "body"
+  };
+
+  private auth: string;
+  private token: string;
+  url: string = 'http://localhost:8080/PBJCinema/login';
   result: User = new User();
 
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string)  {
-
-    let token = '';
-    
+   
     this.user.emailAddress = email;
     this.user.password = password;
     
-    let headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    
-    this.http.post(this.url, this.user).subscribe(
+    this.http.post(this.url, this.user,this.httpOptions).subscribe(
       (response) => {
-        // console.log(response.headers.get('Authorization'));
-        // token = '2:true';
+        this.auth = (response["headers"].get("Authorization"));
+        sessionStorage.setItem("token", this.auth);
+        this.token = sessionStorage.getItem("token");
         console.log(response);
       },
       (error) => console.warn(error)
     );
   
-    token = '2:true';
-    return token;
+    // return this.token;
+    return '2:true'
   }
 }

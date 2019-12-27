@@ -1,13 +1,23 @@
 <div class="container">
-	<nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 		<h3 class="text text-info">CINEAPP</h3>
-		<button *ngIf="!login" class="btn btn-light" routerLink='/login'>Log In/Sign Up</button>
-		<button *ngIf="login" class="btn btn-light" routerLink='/home'>Home</button>
-		<button *ngIf="manager" class="btn btn-light" routerLink='/manager/users'>Manager</button>
-		<button *ngIf="login" class="btn btn-light" (click)="logout()">Log Out</button>
+		<button *ngIf="!login" class="btn btn-dark" routerLink='/login' id="login-btn">Log In</button>
+		<button *ngIf="login" class="btn btn-dark" routerLink='/home' id="home-btn">Home</button>
+		<button *ngIf="manager" class="btn btn-dark" routerLink='/manager/users'>Manager</button>
+		<button *ngIf="login" class="btn btn-dark" (click)="logout()">Log Out</button>
 	</nav>
-	<div>
-		Movie Trailer
+	<div class="row">
+		<div class="col-6">
+			<img src="https://image.tmdb.org/t/p/w500{{movies[ramdomMovie].poster_path}}" routerLink="movies/{{movies[ramdomMovie].id}}" alt="Movie">
+		</div>
+		<div class="col-6 text text-center jumbotron" id="a">
+			<h2>Explore More Movies</h2>
+			<h2>On <span class="text text-info">CINEAPP</span></h2><br>
+			<button class="btn btn-outline-secondary btn-lg" routerLink="/sign-up" *ngIf="!login">Sign Up</button>
+			<button class="btn btn-outline-secondary btn-lg" routerLink="/home" *ngIf="login">Explore</button>
+			<br><br>
+			<p>The Best Movie Website In The World</p>
+    </div>
 	</div>
 	<footer>
 		<a>About Us</a>
