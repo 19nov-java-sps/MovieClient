@@ -16,7 +16,7 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
 
 const routes: Routes = [{
   path: '',
-  component: MovieTrailerComponent
+  component: MovieTrailerComponent,
 }, {
   path: 'login',
   component: SignInComponent

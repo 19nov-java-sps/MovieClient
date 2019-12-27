@@ -61,16 +61,12 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     if (this.validateSignUp() && this.uniqueEmail()) {
-      let token = this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName));
-      if (token) {
-        this.enable = false;
-        this.success = true;
-        setTimeout(() => this.seconds = '2 seconds', 1000);
-        setTimeout(() => this.seconds = '1 second', 2000);
-        setTimeout(() => this.router.navigate(['home']), 3000);
-
-        sessionStorage.setItem('auth', token);
-      }
+      this.userService.createUser(this.email, this.password, this.nameFormat(this.firstName), this.nameFormat(this.lastName));
+      this.enable = false;
+      this.success = true;
+      setTimeout(() => this.seconds = '2 seconds', 1000);
+      setTimeout(() => this.seconds = '1 second', 2000);
+      setTimeout(() => this.router.navigate(['home']), 3000);
     }
   }
 

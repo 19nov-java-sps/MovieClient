@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieService } from 'src/app/services/movie.service';
+import { Movie } from 'src/app/models/movie';
+import { People } from 'src/app/models/people';
 
 @Component({
   selector: 'app-movie-trailer',
@@ -11,7 +14,29 @@ export class MovieTrailerComponent implements OnInit {
   login: boolean = false;
   manager: boolean = false;
 
-  constructor() { }
+  displayButtonPressed: boolean = false;
+  team: People[] = [
+    {
+      "name": "Peter Nguyen",
+      "position": "Project Manager",
+      "github": "https://github.com/pnguye17"
+    },
+    {
+      "name": "Jia Li",
+      "position": "Front End Developer",
+      "github": "https://github.com/DJSHS"
+    },
+    {
+      "name": "Robert Bucci",
+      "position": "Back End Developer",
+      "github": "https://github.com/bobbyb88"
+    },
+  ];
+  
+  movies: Movie[] = [];
+  ramdomMovie: number = Math.floor(Math.random() * 20); 
+
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
     this.token = sessionStorage.getItem('auth');
@@ -25,6 +50,8 @@ export class MovieTrailerComponent implements OnInit {
       this.login = false;
       this.manager = false;
     }
+
+    this.getUpcomingMovies();
   }
 
   logout() {
@@ -32,6 +59,14 @@ export class MovieTrailerComponent implements OnInit {
     this.token = '';
     this.login = false;
     this.manager = false;
+  }
+
+  getUpcomingMovies(): void {
+    this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]));
+  }
+
+  displayTeam() {
+    this.displayButtonPressed = !this.displayButtonPressed
   }
 
 }

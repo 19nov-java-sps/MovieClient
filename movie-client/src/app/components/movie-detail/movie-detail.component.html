@@ -1,13 +1,31 @@
-<div *ngIf="video && movie"> 
-	<img src='https://image.tmdb.org/t/p/w500{{movie.backdrop_path}}' class="card-img-top" alt="...">
-			<h1 class="display-4">{{movie.title}}</h1>
-			<span>{{movie.release_date}}</span>
-			<p class="lead">{{movie.tagline}}</p>
-			<p>{{movie.overview}}</p>
-			<a class="btn btn-primary btn-lg" href="#" (click)="addFavorite(movie)">Add to Favorites</a>
-	<a href="https://www.youtube.com/watch?v={{video[0].key}}" (click)="seeTrailer(movie)">
-			Launch Trailer
-			</a>
+<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+		<h3 class="text text-info" routerLink="/home">CINEAPP</h3>
+		<button *ngIf="!userId" class="btn btn-dark" routerLink='/login' id="login-btn">Log In/Sign Up</button>
+		<button *ngIf="userId" class="btn btn-dark" routerLink='/home' id="home-btn">Home</button>
+		<button *ngIf="userId" class="btn btn-dark" (click)="logout()">Log Out</button>
+	</nav><br>
+	<div *ngIf="video && movie"> 
+		<iframe [src]="getEmbedUrl(video[0].key)" allowfullscreen></iframe>
+		<h1 class="display-4"><u>{{movie.title}}</u></h1>
+		<p class="lead"><strong>{{movie.tagline}}</strong>
+			{{movie.overview}}
+			<span><i><small>{{movie.release_date}}</small></i></span>
+		</p>
+		<a class="btn btn-warning btn-sm" href="#" (click)="addFavorite(movie)">Add to Favorites</a>
+		<button id="watch" class="btn btn-primary btn-sm" (click)="watch()">Watch Movie</button>
+		<button class="btn btn-light btn-sm" id="home-btn" (click)="back()">Back</button>
+		<br><br>
+		<div>
+			<h5>Comments</h5>
+			<div>
+				<textarea placeholder="Write your comment" rows="3" cols="135" [readonly]="!userId"></textarea>
+				<button class="btn btn-primary" type="button" id="post" (click)="post()">Post</button>
+			</div>
+			<div>
+				<!-- all reviews goes here -->
+			</div>
+		</div>
+	</div>
 </div>
-    
-    
+			

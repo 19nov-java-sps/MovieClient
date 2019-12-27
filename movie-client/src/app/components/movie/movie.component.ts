@@ -10,7 +10,12 @@ import { Movie } from '../../models/movie';
 })
 export class MovieComponent implements OnInit {
 
-  movies: Movie[];
+  allMovies: Movie[] = [];
+  movies: Movie[] = [];
+
+  totalPage: number = 1;
+  curPage: number = 1;
+
   SearchCondition: string = '';
 
   constructor(private movieService: MovieService) {
@@ -22,18 +27,37 @@ export class MovieComponent implements OnInit {
   }
 
   getUpcomingMovies(): void {
-    this.movieService.getUpcomingMovies().subscribe(data => this.movies = (data["results"]));
- 
+    this.movieService.getUpcomingMovies().subscribe(data => {
+      this.allMovies = (data["results"]);
+      this.totalPage = Math.ceil(this.allMovies.length / 5);
+      this.movies = this.allMovies.slice(this.curPage * 5 - 5, this.curPage * 5);
+    });
   }
-  
-  moreInfo(movie: Movie){
+
+  nextPage() {
+    this.curPage++;
+    this.movies = this.allMovies.slice(this.curPage * 5 - 5, this.curPage * 5);
+  }
+
+  prevPage() {
+    this.curPage--;
+    this.movies = this.allMovies.slice(this.curPage * 5 - 5, this.curPage * 5);
   }
 
   search() {
     if (this.SearchCondition === '') {
       this.getUpcomingMovies();
     } else {
-      this.movieService.searchMovie(this.SearchCondition).subscribe(data => this.movies = (data["results"]));
+      this.movieService.searchMovie(this.SearchCondition).subscribe(data => {
+        this.allMovies = (data["results"]);
+        this.totalPage = Math.ceil(this.allMovies.length / 5);
+        this.movies = this.allMovies.slice(this.curPage * 5 - 5, this.curPage * 5);
+      });
     }
+  }
+
+  back() {
+    this.SearchCondition = '';
+    this.getUpcomingMovies();
   }
 }

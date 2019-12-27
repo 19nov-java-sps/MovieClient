@@ -1,0 +1,48 @@
+/* nav {
+  border-radius: 0 0 1em 1em;
+} */
+
+img {
+	width: fit-content;
+	height: 88vh;
+	margin-top: 0.1%;
+	cursor: pointer;
+}
+
+h3 {
+  float: left;
+  margin-left: 5%;
+  cursor: pointer;
+}
+
+nav button {
+	margin-right: 1.2%;
+}
+
+#login-btn {
+	margin-left: 70%;
+}
+
+#home-btn {
+	margin-left: 56%;
+}
+
+footer a {
+	font-size: small;
+	margin-right: 2%;
+}
+
+#a {
+	margin-top: 10%;
+	max-height: 380px;
+}
+
+a {
+	color: lightgray;
+	margin-right: 3%;
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
